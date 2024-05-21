@@ -1,25 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="Logstyle.css">
+    <title>Cadastro de Clientes</title>
+    <link rel="stylesheet" href="CadStyle.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
 
 </head>
 <body>
+    <div class="voltar">
+        <a href="Index.html"><i class="fas fa-arrow-left fa-3x"></i></a>
+    </div>
+   
     <div class="container">
         <div class="screen">
             <div class="screen__content">
+                <h1>Cadastro</h1>
                 <form class="login">
                     <div class="login__field">
                         <i class="login__icon fas fa-user"></i>
                         <input type="text" class="login__input" placeholder="Nome">
                     </div>
                     <div class="login__field">
-                        <i class="login__icon fas fa-lock"></i>
-                        <input type="password" class="login__input" placeholder="Senha">
+                        <i class="login__icon fa fa-address-card"></i>
+                        <input type="text" class="login__input" placeholder="CPF">
+                    </div>
+                    <div class="login__field">
+                       <i class="login__icon fas fa-phone" aria-hidden="true"></i>
+                        <input type="text" class="login__input" placeholder="Telefone">
+                    </div>
+                    <div class="login__field">
+                        <i class="login__icon fa fa-home"></i>
+                        <input type="password" class="login__input" placeholder="CEP">
                     </div>
                     <button class="button login__submit">
                         <span class="button__text">Entrar</span>

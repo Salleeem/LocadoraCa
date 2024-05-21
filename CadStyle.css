@@ -15,7 +15,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 100vh;
+    min-height: 85vh;
 }
 
 .screen {
@@ -87,7 +87,7 @@ body {
 .login {
     width: 320px;
     padding: 30px;
-    padding-top: 156px;
+    padding-top: 0;
 }
 
 .login__field {
@@ -182,4 +182,19 @@ body {
     transform: scale(1.5);
 }
 
+
+h1{
+    padding: 30px;
+    color: white;
+    padding-top: 40px;
+}
+
+.voltar{
+    margin-top: 30px;
+}
+
+.voltar a{
+    color: white;
+    padding-left: 30px;
+}
 
