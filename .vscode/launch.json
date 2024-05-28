@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-SeilaApplication<seila>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "webbapp.seila.SeilaApplication",
+            "projectName": "seila",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

@@ -17,45 +17,43 @@
             <div class="screen__content">
                 <h1>Reserva de Carros</h1>
                 <div class="form-container">
-                    <form class="login login-left">
+                    <!-- Formulário de reserva de carros -->
+                    <form class="login login-left" method="post" action="">
                         <div class="login__field">
                             <i class="login__icon fas fa-user"></i>
-                            <input type="text" class="login__input" placeholder="Nome Completo">
+                            <input type="text" class="login__input" name="nome" placeholder="Nome Completo">
                         </div>
                         <div class="login__field">
                             <i class="login__icon fas fa-car"></i>
-                            <input type="text" class="login__input" placeholder="Modelo do Carro">
+                            <input type="text" class="login__input" name="modelo_carro" placeholder="Modelo do Carro">
                         </div>
                         <div class="login__field">
                             <i class="login__icon fas fa-phone" aria-hidden="true"></i>
-                             <input type="text" class="login__input" placeholder="Telefone">
-                         </div>
-                         <div class="login__field">
+                            <input type="text" class="login__input" name="telefone" placeholder="Telefone">
+                        </div>
+                        <div class="login__field">
                             <i class="login__icon fa fa-address-card"></i>
-                            <input type="text" class="login__input" placeholder="CPF">
-                         </div>
-                        
+                            <input type="text" class="login__input" name="cpf" placeholder="CPF">
+                        </div>
                     </form>
-                    <form class="login login-right">
+                    <form class="login login-right" method="post" action="">
                         <div class="login__field">
                             <i class="login__icon fas fa-envelope"></i>
-                            <input type="email" class="login__input" placeholder="Endereço de Email">
+                            <input type="email" class="login__input" name="email" placeholder="Endereço de Email">
                         </div>
                         <div class="login__field">
                             <i class="login__icon fa fa-home"></i>
-                            <input type="email" class="login__input" placeholder="Local de Retirada">
+                            <input type="text" class="login__input" name="local_retirada" placeholder="Local de Retirada">
                         </div>
                         <div class="login__field">
                             <i class="login__icon fas fa-calendar-alt"></i>
-                            <input type="text" class="login__input" placeholder="Data de Retirada">
+                            <input type="text" class="login__input" name="data_retirada" placeholder="Data de Retirada">
                         </div>
                         <div class="login__field">
                             <i class="login__icon fas fa-calendar-alt"></i>
-                            <input type="text" class="login__input" placeholder="Data de Devolução">
+                            <input type="text" class="login__input" name="data_devolucao" placeholder="Data de Devolução">
                         </div>
-                        
-                        
-                        <button class="button login__submit">
+                        <button type="submit" class="button login__submit">
                             <span class="button__text">Reservar Agora</span>
                             <i class="button__icon fas fa-chevron-right"></i>
                         </button>
@@ -70,5 +68,52 @@
             </div>      
         </div>
     </div>
+
+    <!-- Código PHP -->
+    <?php
+    // Configurações do banco de dados
+    $host = 'localhost'; // Endereço do servidor do PostgreSQL
+    $port = '5432'; // Porta do PostgreSQL (padrão: 5432)
+    $dbname = 'locadoracarro'; // Nome do banco de dados
+    $user = 'postgres'; // Nome de usuário do PostgreSQL
+    $password = 'postgres'; // Senha do PostgreSQL
+
+    // Inicializa a mensagem de feedback como vazia
+    $msg = '';
+
+    // Verifica se os dados POST não estão vazios
+    if (!empty($_POST)) {
+        try {
+            // Conexão com o banco de dados
+            $pdo = new PDO("pgsql:host=$host;port=$port;dbname=$dbname;user=$user;password=$password");
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+            // Configura as variáveis que serão inseridas. Verifica se os campos POST existem e, se não, atribui um valor padrão a eles.
+            $nome = isset($_POST['nome']) ? $_POST['nome'] : '';
+            $modelo_carro = isset($_POST['modelo_carro']) ? $_POST['modelo_carro'] : '';
+            $telefone = isset($_POST['telefone']) ? $_POST['telefone'] : '';
+            $cpf = isset($_POST['cpf']) ? $_POST['cpf'] : '';
+            $email = isset($_POST['email']) ? $_POST['email'] : '';
+            $local_retirada = isset($_POST['local_retirada']) ? $_POST['local_retirada'] : '';
+            $data_retirada = isset($_POST['data_retirada']) ? $_POST['data_retirada'] : '';
+            $data_devolucao = isset($_POST['data_devolucao']) ? $_POST['data_devolucao'] : '';
+
+            // Insere um novo registro na tabela de reservas
+            $stmt = $pdo->prepare('INSERT INTO reservas (nome_completo, modelo_carro, telefone, cpf, email, local_retirada, data_retirada, data_devolucao) VALUES (?, ?, ?, ?, ?, ?, ?, ?)');
+            $stmt->execute([$nome, $modelo_carro, $telefone, $cpf, $email, $local_retirada, $data_retirada, $data_devolucao]);
+
+            // Define a mensagem de feedback
+            $msg = 'Reserva realizada com sucesso!';
+        } catch(PDOException $e) {
+            // Em caso de erro, exibe a mensagem de erro
+            $msg = 'Erro ao inserir dados: ' . $e->getMessage();
+        }
+    }
+    ?>
+
+    <!-- Exibição da mensagem de feedback -->
+    <?php if ($msg): ?>
+    <div class="msg"><?=$msg?></div>
+    <?php endif; ?>
 </body>
 </html>

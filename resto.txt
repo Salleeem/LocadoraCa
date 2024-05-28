@@ -1,0 +1,18 @@
+CREATE TABLE reservas (
+    id SERIAL PRIMARY KEY,
+    nome_completo VARCHAR(255),
+    modelo_carro VARCHAR(255),
+    telefone VARCHAR(20),
+    cpf VARCHAR(20),
+    email VARCHAR(255),
+    local_retirada VARCHAR(255),
+    data_retirada DATE,
+    data_devolucao DATE
+);
+
+
+
+insert into reservas (id,nome_completo, modelo_carro, telefone, cpf, email, local_retirada, data_retirada, data_devolucao)
+	values (default, 'mateus','uno', '199142345','231456','teste','limeira','2024-12-01','2024-12-02')
+
+select * from reservas
